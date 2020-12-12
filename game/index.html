@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>
+        Sudoku
+    </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <script src='./code.js'></script>
+    <script>
+    </script>
+
+</head>
+
+<body>
+    <!---- מקבל את מיקום התא בכל לחיצה על כל מקום בטבלה ----->
+    <script>
+        function getSelectedInput() {
+            selectedCell.cellhtml = document.activeElement;
+            let stringId = document.activeElement.id;
+            let i = stringId.charAt(stringId.length - 2);
+            let j = stringId.charAt(stringId.length - 1);
+            selectedCell.cellIndexI = i;
+            selectedCell.cellIndexJ = j;
+            selectedCell.cellValue = sudokuOne[parseInt(i)][parseInt(j)];
+        }
+    </script>
+    <div id="innerDiv">
+        <div id="startLabel">
+
+        </div>
+        <div id="timer">
+            <span>Time Left: </span><span id="remainTime"></span>
+            <br>
+            <span>Choose background:</span>
+            <span class="bkg" id="red" onclick="bgRed()">red</span>
+            <span class="bkg" id="blue" onclick="bgBlue()">blue</span>
+            <span class="bkg" id="white" onclick="bgWhite()">white</span>
+        </div>
+        <script>
+            function timer() {
+                let min = 10
+                let sec = 0;
+                counterBack =
+                    setInterval(function() {
+                        if (min < 10 && sec < 10) {
+                            document.getElementById('remainTime').innerHTML = '0' + min.toString() + ":0" + sec.toString();
+                        } else if (min < 10) {
+                            document.getElementById('remainTime').innerHTML = '0' + min.toString() + ":" + sec.toString();
+                        } else if (sec < 10) {
+                            document.getElementById('remainTime').innerHTML = min.toString() + ":0" + sec.toString();
+                        } else {
+                            document.getElementById('remainTime').innerHTML = min.toString() + ":" + sec.toString();
+                        }
+                        sec--;
+                        if (sec < 0 && min > 0) {
+                            min--;
+                            sec = 59
+                            time = min + ":" + sec;
+                        }
+                        if (sec < 0 && min == 0) {
+                            clearInterval(counterBack);
+                            finish();
+                        }
+                    }, 1000);
+            }
+            window.onload = (timer());
+        </script>
+
+
+
+        <div id="lastMsg">
+            <span id="lastMsgTxt"></span>
+            <img id="happyFace" src='img/happy.png' height='190px' width='290px'>
+            <img id="sadFace" src='img/sad.jpg' height='130px' width='190px'>
+        </div>
+        <!---קופסת עזרה ------>
+        <div id="helpBox">
+            <h5> Help Box</h5>
+            <ul>
+                <li>
+                    <span id="helpNum0" onclick="changeSpanDecor(0)">1</span>
+                    <span id="helpNum1" onclick="changeSpanDecor(1)">2</span>
+                    <span id="helpNum2" onclick="changeSpanDecor(2)">3</span>
+                    <span class="spanBlock"></span>
+                    <span id="helpNum3" onclick="changeSpanDecor(3)">4</span>
+                    <span id="helpNum4" onclick="changeSpanDecor(4)">5</span>
+                    <span id="helpNum5" onclick="changeSpanDecor(5)">6</span>
+                    <span class="spanBlock"></span>
+                    <span id="helpNum6" onclick="changeSpanDecor(6)">7</span>
+                    <span id="helpNum7" onclick="changeSpanDecor(7)">8</span>
+                    <span id="helpNum8" onclick="changeSpanDecor(8)">9</span>
+                </li>
+            </ul>
+        </div>
+        <!---- לוח משחק ------>
+        <div id="gameDiv">
+            <table id="gameTable" onclick="getSelectedInput()">
+                <tr>
+                    <td>
+                        <input value="" type="number" id="num00" class="numbers" onclick="helpBoxSpansDecorationShow(0,0)" oninput="checkError(document.getElementById('num00').value)">
+                    </td>
+                    <td><input value="" type="number" id="num01" class="numbers" onclick="helpBoxSpansDecorationShow(0,1)" oninput="checkError(document.getElementById('num01').value)"></td>
+                    <td><input value="" type="number" id="num02" class="numbers" onclick="helpBoxSpansDecorationShow(0,2)" oninput="checkError(document.getElementById('num02').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num03" class="numbers" onclick="helpBoxSpansDecorationShow(0,3)" oninput="checkError(document.getElementById('num03').value)"></td>
+                    <td><input value="" type="number" id="num04" class="numbers" onclick="helpBoxSpansDecorationShow(0,4)" oninput="checkError(document.getElementById('num04').value)"></td>
+                    <td><input value="" type="number" id="num05" class="numbers" onclick="helpBoxSpansDecorationShow(0,5)" oninput="checkError(document.getElementById('num05').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num06" class="numbers" onclick="helpBoxSpansDecorationShow(0,6)" oninput="checkError(document.getElementById('num06').value)"></td>
+                    <td><input value="" type="number" id="num07" class="numbers" onclick="helpBoxSpansDecorationShow(0,7)" oninput="checkError(document.getElementById('num07').value)"></td>
+                    <td><input value="" type="number" id="num08" class="numbers" onclick="helpBoxSpansDecorationShow(0,8)" oninput="checkError(document.getElementById('num08').value)"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num10" class="numbers" onclick="helpBoxSpansDecorationShow(1,0)" oninput="checkError(document.getElementById('num10').value)"></td>
+                    <td><input value="" type="number" id="num11" class="numbers" onclick="helpBoxSpansDecorationShow(1,1)" oninput="checkError(document.getElementById('num11').value)"></td>
+                    <td><input value="" type="number" id="num12" class="numbers" onclick="helpBoxSpansDecorationShow(1,2)" oninput="checkError(document.getElementById('num12').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num13" class="numbers" onclick="helpBoxSpansDecorationShow(1,3)" oninput="checkError(document.getElementById('num13').value)"></td>
+                    <td><input value="" type="number" id="num14" class="numbers" onclick="helpBoxSpansDecorationShow(1,4)" oninput="checkError(document.getElementById('num14').value)"></td>
+                    <td><input value="" type="number" id="num15" class="numbers" onclick="helpBoxSpansDecorationShow(1,5)" oninput="checkError(document.getElementById('num15').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num16" class="numbers" onclick="helpBoxSpansDecorationShow(1,6)" oninput="checkError(document.getElementById('num16').value)"></td>
+                    <td><input value="" type="number" id="num17" class="numbers" onclick="helpBoxSpansDecorationShow(1,7)" oninput="checkError(document.getElementById('num17').value)"></td>
+                    <td><input value="" type="number" id="num18" class="numbers" onclick="helpBoxSpansDecorationShow(1,8)" oninput="checkError(document.getElementById('num18').value)"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num20" class="numbers" onclick="helpBoxSpansDecorationShow(2,0)" oninput="checkError(document.getElementById('num20').value)"></td>
+                    <td><input value="" type="number" id="num21" class="numbers" onclick="helpBoxSpansDecorationShow(2,1)" oninput="checkError(document.getElementById('num21').value)"></td>
+                    <td><input value="" type="number" id="num22" class="numbers" onclick="helpBoxSpansDecorationShow(2,2)" oninput="checkError(document.getElementById('num22').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num23" class="numbers" onclick="helpBoxSpansDecorationShow(2,3)" oninput="checkError(document.getElementById('num23').value)"></td>
+                    <td><input value="" type="number" id="num24" class="numbers" onclick="helpBoxSpansDecorationShow(2,4)" oninput="checkError(document.getElementById('num24').value)"></td>
+                    <td><input value="" type="number" id="num25" class="numbers" onclick="helpBoxSpansDecorationShow(2,5)" oninput="checkError(document.getElementById('num25').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num26" class="numbers" onclick="helpBoxSpansDecorationShow(2,6)" oninput="checkError(document.getElementById('num26').value)"></td>
+                    <td><input value="" type="number" id="num27" class="numbers" onclick="helpBoxSpansDecorationShow(2,7)" oninput="checkError(document.getElementById('num27').value)"></td>
+                    <td><input value="" type="number" id="num28" class="numbers" onclick="helpBoxSpansDecorationShow(2,8)" oninput="checkError(document.getElementById('num28').value)"></td>
+                </tr>
+                <tr class="spacingTable">
+                    <td class="spacingData"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num30" class="numbers" onclick="helpBoxSpansDecorationShow(3,0)" oninput="checkError(document.getElementById('num30').value)"></td>
+                    <td><input value="" type="number" id="num31" class="numbers" onclick="helpBoxSpansDecorationShow(3,1)" oninput="checkError(document.getElementById('num31').value)"></td>
+                    <td><input value="" type="number" id="num32" class="numbers" onclick="helpBoxSpansDecorationShow(3,2)" oninput="checkError(document.getElementById('num32').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num33" class="numbers" onclick="helpBoxSpansDecorationShow(3,3)" oninput="checkError(document.getElementById('num33').value)"></td>
+                    <td><input value="" type="number" id="num34" class="numbers" onclick="helpBoxSpansDecorationShow(3,4)" oninput="checkError(document.getElementById('num34').value)"></td>
+                    <td><input value="" type="number" id="num35" class="numbers" onclick="helpBoxSpansDecorationShow(3,5)" oninput="checkError(document.getElementById('num35').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num36" class="numbers" onclick="helpBoxSpansDecorationShow(3,6)" oninput="checkError(document.getElementById('num36').value)"></td>
+                    <td><input value="" type="number" id="num37" class="numbers" onclick="helpBoxSpansDecorationShow(3,7)" oninput="checkError(document.getElementById('num37').value)"></td>
+                    <td><input value="" type="number" id="num38" class="numbers" onclick="helpBoxSpansDecorationShow(3,8)" oninput="checkError(document.getElementById('num38').value)"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num40" class="numbers" onclick="helpBoxSpansDecorationShow(4,0)" oninput="checkError(document.getElementById('num40').value)"></td>
+                    <td><input value="" type="number" id="num41" class="numbers" onclick="helpBoxSpansDecorationShow(4,1)" oninput="checkError(document.getElementById('num41').value)"></td>
+                    <td><input value="" type="number" id="num42" class="numbers" onclick="helpBoxSpansDecorationShow(4,2)" oninput="checkError(document.getElementById('num42').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num43" class="numbers" onclick="helpBoxSpansDecorationShow(4,3)" oninput="checkError(document.getElementById('num43').value)"></td>
+                    <td><input value="" type="number" id="num44" class="numbers" onclick="helpBoxSpansDecorationShow(4,4)" oninput="checkError(document.getElementById('num44').value)"></td>
+                    <td><input value="" type="number" id="num45" class="numbers" onclick="helpBoxSpansDecorationShow(4,5)" oninput="checkError(document.getElementById('num45').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num46" class="numbers" onclick="helpBoxSpansDecorationShow(4,6)" oninput="checkError(document.getElementById('num46').value)"></td>
+                    <td><input value="" type="number" id="num47" class="numbers" onclick="helpBoxSpansDecorationShow(4,7)" oninput="checkError(document.getElementById('num47').value)"></td>
+                    <td><input value="" type="number" id="num48" class="numbers" onclick="helpBoxSpansDecorationShow(4,8)" oninput="checkError(document.getElementById('num48').value)"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num50" class="numbers" onclick="helpBoxSpansDecorationShow(5,0)" oninput="checkError(document.getElementById('num50').value)"></td>
+                    <td><input value="" type="number" id="num51" class="numbers" onclick="helpBoxSpansDecorationShow(5,1)" oninput="checkError(document.getElementById('num51').value)"></td>
+                    <td><input value="" type="number" id="num52" class="numbers" onclick="helpBoxSpansDecorationShow(5,2)" oninput="checkError(document.getElementById('num52').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num53" class="numbers" onclick="helpBoxSpansDecorationShow(5,3)" oninput="checkError(document.getElementById('num53').value)"></td>
+                    <td><input value="" type="number" id="num54" class="numbers" onclick="helpBoxSpansDecorationShow(5,4)" oninput="checkError(document.getElementById('num54').value)"></td>
+                    <td><input value="" type="number" id="num55" class="numbers" onclick="helpBoxSpansDecorationShow(5,5)" oninput="checkError(document.getElementById('num55').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num56" class="numbers" onclick="helpBoxSpansDecorationShow(5,6)" oninput="checkError(document.getElementById('num56').value)"></td>
+                    <td><input value="" type="number" id="num57" class="numbers" onclick="helpBoxSpansDecorationShow(5,7)" oninput="checkError(document.getElementById('num57').value)"></td>
+                    <td><input value="" type="number" id="num58" class="numbers" onclick="helpBoxSpansDecorationShow(5,8)" oninput="checkError(document.getElementById('num58').value)"></td>
+                </tr>
+                <tr class="spacingTable">
+                    <td class="spacingData"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num60" class="numbers" onclick="helpBoxSpansDecorationShow(6,0)" oninput="checkError(document.getElementById('num60').value)"></td>
+                    <td><input value="" type="number" id="num61" class="numbers" onclick="helpBoxSpansDecorationShow(6,1)" oninput="checkError(document.getElementById('num61').value)"></td>
+                    <td><input value="" type="number" id="num62" class="numbers" onclick="helpBoxSpansDecorationShow(6,2)" oninput="checkError(document.getElementById('num62').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num63" class="numbers" onclick="helpBoxSpansDecorationShow(6,3)" oninput="checkError(document.getElementById('num63').value)"></td>
+                    <td><input value="" type="number" id="num64" class="numbers" onclick="helpBoxSpansDecorationShow(6,4)" oninput="checkError(document.getElementById('num64').value)"></td>
+                    <td><input value="" type="number" id="num65" class="numbers" onclick="helpBoxSpansDecorationShow(6,5)" oninput="checkError(document.getElementById('num65').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num66" class="numbers" onclick="helpBoxSpansDecorationShow(6,6)" oninput="checkError(document.getElementById('num66').value)"></td>
+                    <td><input value="" type="number" id="num67" class="numbers" onclick="helpBoxSpansDecorationShow(6,7)" oninput="checkError(document.getElementById('num67').value)"></td>
+                    <td><input value="" type="number" id="num68" class="numbers" onclick="helpBoxSpansDecorationShow(6,8)" oninput="checkError(document.getElementById('num68').value)"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num70" class="numbers" onclick="helpBoxSpansDecorationShow(7,0)" oninput="checkError(document.getElementById('num70').value)"></td>
+                    <td><input value="" type="number" id="num71" class="numbers" onclick="helpBoxSpansDecorationShow(7,1)" oninput="checkError(document.getElementById('num71').value)"></td>
+                    <td><input value="" type="number" id="num72" class="numbers" onclick="helpBoxSpansDecorationShow(7,2)" oninput="checkError(document.getElementById('num72').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num73" class="numbers" onclick="helpBoxSpansDecorationShow(7,3)" oninput="checkError(document.getElementById('num73').value)"></td>
+                    <td><input value="" type="number" id="num74" class="numbers" onclick="helpBoxSpansDecorationShow(7,4)" oninput="checkError(document.getElementById('num74').value)"></td>
+                    <td><input value="" type="number" id="num75" class="numbers" onclick="helpBoxSpansDecorationShow(7,5)" oninput="checkError(document.getElementById('num75').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num76" class="numbers" onclick="helpBoxSpansDecorationShow(7,6)" oninput="checkError(document.getElementById('num76').value)"></td>
+                    <td><input value="" type="number" id="num77" class="numbers" onclick="helpBoxSpansDecorationShow(7,7)" oninput="checkError(document.getElementById('num77').value)"></td>
+                    <td><input value="" type="number" id="num78" class="numbers" onclick="helpBoxSpansDecorationShow(7,8)" oninput="checkError(document.getElementById('num78').value)"></td>
+                </tr>
+                <tr>
+                    <td><input value="" type="number" id="num80" class="numbers" onclick="helpBoxSpansDecorationShow(8,0)" oninput="checkError(document.getElementById('num80').value)"></td>
+                    <td><input value="" type="number" id="num81" class="numbers" onclick="helpBoxSpansDecorationShow(8,1)" oninput="checkError(document.getElementById('num81').value)"></td>
+                    <td><input value="" type="number" id="num82" class="numbers" onclick="helpBoxSpansDecorationShow(8,2)" oninput="checkError(document.getElementById('num82').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num83" class="numbers" onclick="helpBoxSpansDecorationShow(8,3)" oninput="checkError(document.getElementById('num83').value)"></td>
+                    <td><input value="" type="number" id="num84" class="numbers" onclick="helpBoxSpansDecorationShow(8,4)" oninput="checkError(document.getElementById('num84').value)"></td>
+                    <td><input value="" type="number" id="num85" class="numbers" onclick="helpBoxSpansDecorationShow(8,5)" oninput="checkError(document.getElementById('num85').value)"></td>
+                    <td class="spacingTable"></td>
+                    <td><input value="" type="number" id="num86" class="numbers" onclick="helpBoxSpansDecorationShow(8,6)" oninput="checkError(document.getElementById('num86').value)"></td>
+                    <td><input value="" type="number" id="num87" class="numbers" onclick="helpBoxSpansDecorationShow(8,7)" oninput="checkError(document.getElementById('num87').value)"></td>
+                    <td><input value="" type="number" id="num88" class="numbers" onclick="helpBoxSpansDecorationShow(8,8)" oninput="checkError(document.getElementById('num88').value)"></td>
+                </tr>
+            </table>
+            <div id="lowerBtn">
+                <button onclick="finish()"> Finish!</button>
+                <button onclick="reset()"> Reset </button>
+                <button onclick="back()"> back to difficulty </button>
+            </div>
+        </div>
+        <!--- תפריט צד ------>
+        <div id="sideMenu">
+            <p class="sidePa">
+                <h2>Hints & Solutions</h2>
+                <ul id="hintsLi">
+                    <li>
+                        <button onclick="selectedHint(selectedCell)"> Solve chosen cell</button>
+                    </li>
+                    <li><button onclick="randomHint()"> Solve random cell</button></li>
+                    <li><button onclick="hintsButtom()"><input type="checkbox" id="useHintsError" >Use automatic help</button></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+    </div>
+    <script>
+        //  בונה מטריצה שכל תא בא מכיל מערך עם 8 תאים עם ערך בין 1 ל0 על מנת לדעת בקופסת עזרה איך לעצב את המספר
+        let spanMat = [];
+        for (let i = 0; i < 9; i++) {
+            spanMat[i] = [];
+            for (let j = 0; j < 9; j++) {
+                spanMat[i][j] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            }
+        }
+        spanMatStyle = spanMat;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const level = urlParams.get('level');
+        buildTableByLevel(level);
+
+        function buildTableByLevel(fixedCells) { // הפונקציה מקבלת ערך מספרי, ובצורה רנדומלית תכניס מספרים ללוח לפי המספר שקיבלה
+
+            intro(); //3 2 1 GO
+            setTimeout(function() {
+                let cellNum, isEntered, j, i;
+                for (let x = 0; x < fixedCells; x++) {
+                    isEntered = false;
+                    cellNum = Math.floor(Math.random() * 89) + 0;
+                    while (!isEntered) { // מוודאים שלא נכנס לתא אחד ערך פעמיים
+                        while (parseInt(cellNum % 10) == 9) //ספרת האחדות לא יכולה להיות 9 המערך והתאים ממוספרים מ0 עד 8
+                        {
+                            cellNum = Math.floor(Math.random() * 89) + 0;
+                        }
+                        j = parseInt(cellNum % 10); //מבודדים את ספרת האחדות אחראי על המערכים הפנימיים שבמטריצה
+                        i = parseInt(cellNum / 10); // מבודדים את ספרת העשרות אחראי על הערכים החיצוניים שבמטריצה
+                        if (document.getElementById('num' + i.toString() + j.toString()).disabled == false) {
+                            document.getElementById('num' + i.toString() + j.toString()).value = sudokuOne[i][j];
+                            document.getElementById('num' + i.toString() + j.toString()).disabled = true;
+                            isEntered = true;
+                        } else
+                            cellNum = Math.floor(Math.random() * 89) + 0;
+                    }
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

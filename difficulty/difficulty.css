@@ -1,0 +1,25 @@
+body {
+    background-image: url(../game/img/gamebackg2.png);
+    background-size: 100% 115%;
+    background-repeat: no-repeat;
+    height: 80%;
+}
+
+#difficulty {
+    margin-left: 10px;
+    padding: 40px 20px;
+    display: grid;
+    width: 250px;
+    border-radius: 30px;
+    border: 1px solid #2196F3;
+    background: lightgray;
+    margin: 50px auto;
+}
+
+input {
+    margin-top: 5px;
+}
+
+label {
+    display: inline-block;
+}

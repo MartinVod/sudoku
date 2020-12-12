@@ -1,0 +1,465 @@
+/*  רספונסיביות - במסכים קטנים יציג בשורות ולא בעמודות */
+
+@media only screen and (min-width: 0px) {
+    #innerDiv {
+        grid-template-columns: 1fr;
+        grid-gap: 4px;
+        grid-template-rows: 0.05fr 0.1fr 0.1fr 3fr;
+        grid-template-areas: "logo" "hb" "sm" "gd";
+        text-align: center;
+        justify-items: center;
+    }
+    #timer {
+        grid-area: tmr;
+        grid-area: logo;
+    }
+    #difficulty {
+        grid-area: logo;
+        margin-left: 10px;
+    }
+    #sideMenu {
+        /*grid-column: 1;
+        grid-row: 2/3;*/
+        margin-left: none;
+        grid-area: sm;
+    }
+    #gameDiv {
+        margin-left: 15px;
+        /*grid-column: 2;
+        grid-row: 2/ span 2;*/
+        grid-area: gd;
+    }
+    #sideMenu button {
+        width: 190px;
+        background-color: rgb(192, 192, 192);
+        font-size: 14px;
+        border: none;
+        outline: none;
+        position: relative;
+        min-height: 24px;
+    }
+    #sideMenu li {
+        display: inline-block;
+        margin: 4px 4px;
+        padding: 0;
+        border: 1px solid black;
+        background-color: rgb(192, 192, 192);
+        opacity: 0.7;
+        box-shadow: 0px 6px 1px darkblue;
+        position: relative;
+    }
+    .spanBlock {
+        display: none;
+    }
+    #HelpBox {
+        grid-area: hb;
+        font-size: 15px;
+    }
+    #helpBox span {
+        font-size: 15px;
+    }
+    .numbers {
+        max-width: 40px;
+        max-height: 20px;
+        min-height: 20px;
+        font-size: 15px;
+    }
+    td {
+        display: inline-flex;
+        align-content: center;
+        min-height: 23px;
+        max-height: 23px;
+        min-width: 23px;
+        max-width: 23px;
+    }
+    #lowerBtn>button {
+        text-align: center;
+        padding: 20 50px;
+        font-size: 20px;
+        max-width: 80px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .numbers {
+        max-width: 60px;
+        max-height: 30px;
+        min-height: 30px;
+        font-size: 18px;
+    }
+    #innerDiv {
+        grid-template-columns: 2fr 0.5fr;
+        grid-gap: 4px;
+        grid-template-rows: 0.1fr 0.5fr 0.5fr;
+        grid-template-areas: "logo logo" "gd hb" "gd sm";
+        text-align: center;
+        justify-items: center;
+    }
+    #timer {
+        grid-row: 1;
+        grid-column: 1;
+    }
+    #difficulty {
+        grid-area: logo;
+        margin-left: 40%;
+    }
+    #helpBox {
+        /*grid-column: 1;
+        grid-row: 3/4;*/
+        grid-area: hb;
+    }
+    #helpBox span {
+        font-size: 21px;
+    }
+    .spanBlock {
+        display: block;
+    }
+    #sideMenu {
+        /*grid-column: 1;
+        grid-row: 2/3;*/
+        margin-left: none;
+        grid-area: sm;
+    }
+    #gameDiv {
+        margin-left: 10px;
+        /*grid-column: 2;
+        grid-row: 2/ span 2;*/
+        grid-area: gd;
+    }
+    #sideMenu button {
+        width: 190px;
+        background-color: rgb(192, 192, 192);
+        font-size: 20px;
+        border: none;
+        outline: none;
+        position: relative;
+        min-height: 25px;
+        max-height: auto;
+    }
+    #sideMenu li {
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        border: 1px solid black;
+        background-color: rgb(192, 192, 192);
+        max-width: 220px;
+        opacity: 0.7;
+        box-shadow: 0px 6px 1px darkblue;
+        position: relative;
+        margin-bottom: 7px;
+        max-height: auto;
+    }
+    td {
+        display: inline-flex;
+        align-content: center;
+        min-height: 33px;
+        max-height: 33px;
+        min-width: 33px;
+        max-width: 33px;
+    }
+    #lowerBtn>button {
+        text-align: center;
+        padding: 20 150px;
+        font-size: 20px;
+        min-width: 240px;
+    }
+}
+
+@media only screen and (min-width: 1150px) {
+    .numbers {
+        max-width: 60px;
+        max-height: 30px;
+        min-height: 30px;
+        font-size: 24px;
+    }
+    #innerDiv {
+        grid-template-columns: 1fr 3fr 2fr;
+        grid-gap: 10px;
+        grid-template-rows: 0.5fr 3fr;
+        grid-auto-flow: row;
+        grid-auto-rows: auto;
+        text-align: center;
+        justify-items: center;
+    }
+    #difficulty {
+        grid-column: 0/ 2;
+        grid-row: 1;
+        text-align: center;
+    }
+    #timer {
+        grid-row: 1;
+        grid-column: 3;
+    }
+    #helpBox {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    #helpBox span {
+        font-size: 28px;
+    }
+    .spanBlock {
+        display: block;
+    }
+    #sideMenu {
+        grid-column: 3;
+        grid-row: 2;
+        margin-left: none;
+    }
+    #gameDiv {
+        grid-column: 2;
+        grid-row: 2;
+        margin-left: 30%;
+    }
+    #sideMenu button {
+        width: 220px;
+        background-color: rgb(192, 192, 192);
+        font-size: 24px;
+        border: none;
+        outline: none;
+        position: relative;
+    }
+    #sideMenu li {
+        margin: 0;
+        padding: 0;
+        font-size: 24px;
+        border: 1px solid black;
+        background-color: rgb(192, 192, 192);
+        max-width: 220px;
+        opacity: 0.7;
+        box-shadow: 0px 6px 1px darkblue;
+        position: relative;
+        margin-bottom: 7px;
+    }
+    td {
+        display: inline-flex;
+        align-content: center;
+        min-height: 33px;
+        max-height: 33px;
+        min-width: 33px;
+        max-width: 33px;
+    }
+    #lowerBtn>button {
+        text-align: center;
+        padding: 20 130px;
+        font-size: 24px;
+        min-width: 150px;
+    }
+}
+
+
+/*עיצוב דיבים */
+
+#innerDiv {
+    /*חלוקה לתאים */
+    background-image: url(img/gamebackg2.png);
+    background-size: 100% 115%;
+    display: grid;
+    transition: 2s;
+}
+
+
+/*   logo */
+
+
+/* עיצוב תפריט בצד */
+
+#sideMenu {
+    margin-left: 15%;
+}
+
+#sideMenu h2 {
+    padding: none;
+    margin: none;
+}
+
+ul {
+    list-style: none;
+}
+
+#sideMenu li:hover {
+    opacity: 0.99;
+}
+
+#sideMenu li:active {
+    opacity: 0.99;
+    top: 5px;
+    transition: 5s;
+    box-shadow: none;
+}
+
+#sideMenu button:active {
+    outline: none;
+    transition: 5s;
+    top: 5px;
+    box-shadow: none;
+}
+
+
+/* game boared div */
+
+
+/* Game Boared Elements */
+
+
+/* עיצוב אינפוטים */
+
+.numbers {
+    margin: 2px;
+    padding: 0px;
+    background-color: aqua;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    box-shadow: 4px 7px 4px darkblue;
+    text-align: center;
+    color: black;
+    transform: rotateY(-40deg);
+    border: 2px solid darkblue;
+}
+
+
+/* הורדת כפתורים פלוס ומינוס על אינפוט שיש לו ערך מספרי */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input:focus {
+    position: relative;
+    border: none;
+    padding: none;
+    outline: none;
+    z-index: 2;
+    border: 1px solid darkblue;
+}
+
+
+/* game table style*/
+
+
+/* עיצוב טבלת משחק */
+
+.spacingTable td {
+    display: inline-flex;
+    padding: 5px 0px;
+}
+
+.spacingTable {
+    display: inline-flex;
+}
+
+
+/* Numbers Help Box Div */
+
+
+/* Numbers Help Box Elements */
+
+span {
+    user-select: none;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+
+/*footer*/
+
+#lowerBtn {
+    display: flex;
+    margin-left: none;
+}
+
+#lowerBtn>button {
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    flex: auto;
+    background-color: aquamarine;
+    box-shadow: 0px 6px 1px darkblue;
+    margin-bottom: 20px;
+    position: relative;
+    outline: none;
+    border-top-left-radius: 30%;
+    border-bottom-right-radius: 30%;
+    transform: skewX(-20deg);
+}
+
+#lowerBtn>button:hover {
+    background-color: cornflowerblue;
+}
+
+#lowerBtn>button:active {
+    background-color: aquamarine;
+    box-shadow: none;
+    top: 5px;
+    outline: none;
+    transition: 2s;
+}
+
+#lastMsg {
+    text-align: center;
+    background-color: darkred;
+    display: none;
+    width: 600px;
+    height: 300px;
+    font-size: 400%;
+    position: absolute;
+    left: 220px;
+    top: 200px;
+    z-index: 3;
+}
+
+h5 {
+    text-decoration: underline;
+    font-size: 30px;
+    padding: 0px;
+    margin: 0px;
+}
+
+button input {
+    margin: 0;
+    padding: 0;
+}
+
+#timer {
+    position: relative;
+}
+
+#startLabel {
+    background-color: none;
+    margin: auto;
+    position: absolute;
+    left: 42%;
+    top: 35%;
+    z-index: 4;
+    text-shadow: 2px 4px red;
+    display: none;
+}
+
+#helpBox span {
+    cursor: grab;
+}
+
+#innerDiv h1,
+#innerDiv p {
+    padding: 0px;
+    margin: 0px;
+}
+
+.spacingData,
+.spacingTable {
+    max-height: 0px;
+    padding: 0px;
+}
+
+#red {
+    background-color: red;
+}
+
+#white {
+    background-color: white;
+}
+
+#blue {
+    background-color: blue;
+}
