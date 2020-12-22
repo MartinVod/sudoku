@@ -16,5 +16,5 @@ function start(){
 }
 
 function startGame(level){
-    window.location = "../game/index.html?level=" + level
+    window.location = "./game/index.html?level=" + level
 }
